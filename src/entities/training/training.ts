@@ -1,6 +1,6 @@
-import { isDate } from 'node:util/types'
-import type { Training, MultiSet, СircuitTraining } from './types/types.js'
-import { CIRCUIT_TRAINIG_TYPE } from './types/types.js'
+import { isDate } from 'node:util/types';
+import type { Training, MultiSet, СircuitTraining } from './types/types.js';
+import { CIRCUIT_TRAINIG_TYPE } from './types/types.js';
 
 export const createTraining = (
   multisets: MultiSet[],
@@ -11,38 +11,38 @@ export const createTraining = (
 ): Training | undefined => {
   if (multisets.length === 0) {
     // TODO: Throw exception
-    return undefined
+    return undefined;
   }
 
-  let finalDate: Date = new Date()
+  let finalDate: Date = new Date();
 
   // TODO: Date in feature check?
   if (isDate(date)) {
-    finalDate = date
+    finalDate = date;
   }
 
-  return ({
+  return {
     id: String(finalDate),
     date: finalDate,
     name: name || String(finalDate).split(' ').slice(1, 4).join(' '),
     multisets,
     timeLimit,
     duration,
-  })
-}
+  };
+};
 
 export const generateTemplateMultisets = (
   multiset: MultiSet,
   totalSets: number,
 ): MultiSet[] => {
-  const multisets: MultiSet[] = []
+  const multisets: MultiSet[] = [];
 
   for (let i = 0; i <= totalSets; i++) {
-    multisets.push(multiset)
+    multisets.push(multiset);
   }
 
-  return multisets
-}
+  return multisets;
+};
 
 // multisets: {
 //  sets: [
@@ -62,31 +62,31 @@ export const createEMOMTraining = (
 ): СircuitTraining | undefined => {
   if (multisets.length === 0) {
     // TODO: Throw exception
-    return undefined
+    return undefined;
   }
 
   // All EMOM MultiSets shuld have timeLimit
   if (multisets.some(({ timeLimit }) => !timeLimit)) {
     // TODO: Throw exception
-    return undefined
+    return undefined;
   }
 
-  let finalDate: Date = new Date()
+  let finalDate: Date = new Date();
 
   // TODO: Date in feature check?
   if (isDate(date)) {
-    finalDate = date
+    finalDate = date;
   }
 
-  return ({
+  return {
     id: String(finalDate),
     name: name ?? String(finalDate).split(' ').slice(1, 4).join(' '),
     date: finalDate,
     type: CIRCUIT_TRAINIG_TYPE.EMOM,
     multisets,
     duration,
-  })
-}
+  };
+};
 
 // multisets: {
 //  sets: [
@@ -101,35 +101,35 @@ export const createAMRAPTraining = (
   multisets: MultiSet[],
   date: Date,
   name: string,
-  timeLimit: number
+  timeLimit: number,
 ): СircuitTraining | undefined => {
   if (multisets.length === 0) {
     // TODO: Throw exception
-    return undefined
+    return undefined;
   }
 
   // All AMRAP Training shuld have timeLimit
   if (!timeLimit) {
     // TODO: Throw exception
-    return undefined
+    return undefined;
   }
 
-  let finalDate: Date = new Date()
+  let finalDate: Date = new Date();
 
   // TODO: Date in feature check?
   if (isDate(date)) {
-    finalDate = date
+    finalDate = date;
   }
 
-  return ({
+  return {
     id: String(finalDate),
     date: finalDate,
     name: name ?? String(finalDate).split(' ').slice(1, 4).join(' '),
     type: CIRCUIT_TRAINIG_TYPE.AMRAP,
     multisets,
     timeLimit,
-  })
-}
+  };
+};
 
 // multisets: {
 //  sets: [
@@ -144,34 +144,34 @@ export const createAFAPTraining = (
   multisets: MultiSet[],
   date: Date,
   name: string,
-  duration: number
+  duration: number,
 ): СircuitTraining | undefined => {
   if (multisets.length === 0) {
-    return undefined
+    return undefined;
   }
 
   // All AFAP Training shuld have duration
   if (!duration) {
     // TODO: Throw exception
-    return undefined
+    return undefined;
   }
 
-  let finalDate: Date = new Date()
+  let finalDate: Date = new Date();
 
   // TODO: Date in feature check?
   if (isDate(date)) {
-    finalDate = date
+    finalDate = date;
   }
 
-  return ({
+  return {
     id: String(finalDate),
     date: finalDate,
     name: name ?? String(finalDate).split(' ').slice(1, 4).join(' '),
     multisets,
     duration,
     type: CIRCUIT_TRAINIG_TYPE.AFAP,
-  })
-}
+  };
+};
 
 // multisets: {
 //  sets: [
@@ -185,37 +185,41 @@ export const createCircularTraining = (
   multisets: MultiSet[],
   date: Date,
   name: string,
-  duration: number
+  duration: number,
 ): СircuitTraining | undefined => {
   if (multisets.length === 0) {
-    return undefined
+    return undefined;
   }
 
   // All CircularTraining MultiSets shuld have restTime
   if (multisets.some(({ restTime }) => !restTime)) {
     // TODO: Throw exception
-    return undefined
+    return undefined;
   }
 
   // All CircularTraining Sets shuld have timeLimit & restTime
-  if (multisets.some(({ sets }) => sets.some(({ timeLimit, restTime }) => !timeLimit || !restTime))) {
+  if (
+    multisets.some(({ sets }) =>
+      sets.some(({ timeLimit, restTime }) => !timeLimit || !restTime),
+    )
+  ) {
     // TODO: Throw exception
-    return undefined
+    return undefined;
   }
 
-  let finalDate: Date = new Date()
+  let finalDate: Date = new Date();
 
   // TODO: Date in feature check?
   if (isDate(date)) {
-    finalDate = date
+    finalDate = date;
   }
 
-  return ({
+  return {
     id: String(finalDate),
     date: finalDate,
     name: name ?? String(finalDate).split(' ').slice(1, 4).join(' '),
     type: CIRCUIT_TRAINIG_TYPE.CT,
     multisets,
     duration,
-  })
-}
+  };
+};
