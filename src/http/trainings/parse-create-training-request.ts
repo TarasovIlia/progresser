@@ -1,21 +1,20 @@
 import { BadRequestException } from '@nestjs/common';
 import {
   CreateTrainingRequest,
-  Set,
+  RequestMultiSet,
+  RequestSet,
 } from '../../features/create-training/create-training-request.js';
-
-type MultiSetShape = CreateTrainingRequest['multisets'][number];
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   typeof value === 'object' && value !== null;
 
-const isSet = (value: unknown): value is Set =>
+const isSet = (value: unknown): value is RequestSet =>
   isRecord(value) &&
   typeof value.exercise === 'string' &&
   typeof value.reps === 'number' &&
   typeof value.weight === 'number';
 
-const isMultiSet = (value: unknown): value is MultiSetShape =>
+const isMultiSet = (value: unknown): value is RequestMultiSet =>
   isRecord(value) &&
   Array.isArray(value.sets) &&
   value.sets.every(isSet) &&

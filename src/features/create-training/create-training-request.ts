@@ -1,21 +1,21 @@
 export interface CreateTrainingRequest {
   name: string;
-  multisets: MultiSet[];
+  multisets: RequestMultiSet[];
   targetMultisets?: number;
   date: Date;
   duration?: number;
   timeLimit?: number;
 }
 
-interface MultiSet {
-  sets: Set[];
+export interface RequestMultiSet {
+  sets: RequestSet[];
   targetSets: number;
   duration: number;
   timeLimit: number;
   restTime: number;
 }
 
-export interface Set {
+export interface RequestSet {
   exercise: string;
   reps: number;
   weight: number;
