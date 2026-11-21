@@ -9,6 +9,7 @@ export interface Set {
   exercise: string;
   reps: number;
   weight: number;
+  targetReps?: number;
   duration?: number;
   timeLimit?: number;
   restTime?: number;
@@ -16,6 +17,7 @@ export interface Set {
 
 export interface MultiSet {
   sets: Set[];
+  targetSets: number;
   duration: number;
   timeLimit: number;
   restTime: number;
@@ -29,6 +31,7 @@ export interface Training {
   id: string;
   name: string;
   multisets: MultiSet[];
+  targetMultisets?: number;
   date: Date;
   duration?: number;
   timeLimit?: number;

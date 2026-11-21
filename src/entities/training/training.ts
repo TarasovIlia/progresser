@@ -44,15 +44,35 @@ export const generateTemplateMultisets = (
   return multisets;
 };
 
-// multisets: {
-//  sets: [
-//    { exercise: 'Squats', reps: 10, weight: 20 },
-//    { exercise: 'Broad jump', reps: 5, weight: 0 },
-//    { exercise: 'Squats', reps: 15, weight: 0 },
-//  ],
-//  timeLimit: 90,
-//  restTime: 60,
-// }
+// multisets: [
+//  {
+//    sets: [
+//      { exercise: 'Pull-up', targetReps: 5, reps: 5, weight: 0, duration: 10 },
+//      { exercise: 'Dips', targetReps: 5, reps: 5, weight: 0, duration: 10 },
+//    ],
+//    timeLimit: 20,
+//    restTime: 40,
+//    duration: 20,
+//  },
+//  {
+//    sets: [
+//      { exercise: 'Pull-up', targetReps: 5, reps: 5, weight: 0, duration: 12 },
+//      { exercise: 'Dips', targetReps: 5, reps: 5, weight: 0, duration: 10 },
+//    ],
+//    timeLimit: 20,
+//    restTime: 40,
+//    duration: 22,
+//  }
+//  {
+//    sets: [
+//      { exercise: 'Pull-up', targetReps: 5, reps: 5, weight: 0, duration: 10 },
+//      { exercise: 'Dips', targetReps: 5, reps: 4, weight: 0, duration: 10 },
+//    ],
+//    timeLimit: 20,
+//    restTime: 40,
+//    duration: 20,
+//  }
+// ]
 
 export const createEMOMTraining = (
   multisets: MultiSet[],
