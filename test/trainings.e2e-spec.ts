@@ -59,4 +59,34 @@ describe('TrainingsController (e2e)', () => {
       .send({ name: 'Leg day' })
       .expect(400);
   });
+
+  it('/trainings (GET) returns an empty list when nothing was created', async () => {
+    const response = await request(app.getHttpServer()).get('/trainings').expect(200);
+
+    expect(response.body.trainings).toEqual([]);
+  });
+
+  it('/trainings (GET) returns every created training', async () => {
+    await request(app.getHttpServer())
+      .post('/trainings')
+      .send({
+        name: 'Leg day',
+        date: '2026-11-21',
+        multisets: [
+          {
+            sets: [{ exercise: 'Squats', reps: 10, weight: 20 }],
+            targetSets: 1,
+            duration: 30,
+            timeLimit: 60,
+            restTime: 60,
+          },
+        ],
+      })
+      .expect(201);
+
+    const response = await request(app.getHttpServer()).get('/trainings').expect(200);
+
+    expect(response.body.trainings).toHaveLength(1);
+    expect(response.body.trainings[0].name).toBe('Leg day');
+  });
 });

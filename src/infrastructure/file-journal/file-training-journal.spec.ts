@@ -44,4 +44,26 @@ describe('FileTrainingJournal', () => {
     expect(records[1]).toMatchObject({ version: 1, id: second.id, name: 'Push day' });
     expect(typeof records[0].date).toBe('string');
   });
+
+  it('reads back everything it wrote, restoring Date objects', async () => {
+    const journal = new FileTrainingJournal(filePath);
+    const first = createTraining(multisets, new Date('2026-11-21'), 'Leg day')!;
+    const second = createTraining(multisets, new Date('2026-11-22'), 'Push day')!;
+
+    await journal.add(first);
+    await journal.add(second);
+
+    const trainings = await journal.getAll();
+
+    expect(trainings).toHaveLength(2);
+    expect(trainings.map((training) => training.id)).toEqual([first.id, second.id]);
+    expect(trainings[0].date).toBeInstanceOf(Date);
+    expect(trainings[0].date.toISOString()).toBe(first.date.toISOString());
+  });
+
+  it('returns an empty list when the file does not exist yet', async () => {
+    const journal = new FileTrainingJournal(filePath);
+
+    await expect(journal.getAll()).resolves.toEqual([]);
+  });
 });
