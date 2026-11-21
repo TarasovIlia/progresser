@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto';
 import { isDate } from 'node:util/types';
 import type { Training, MultiSet, СircuitTraining } from './types/types.js';
 import { CIRCUIT_TRAINIG_TYPE } from './types/types.js';
@@ -22,7 +23,7 @@ export const createTraining = (
   }
 
   return {
-    id: String(finalDate),
+    id: randomUUID(),
     date: finalDate,
     name: name || String(finalDate).split(' ').slice(1, 4).join(' '),
     multisets,
@@ -99,7 +100,7 @@ export const createEMOMTraining = (
   }
 
   return {
-    id: String(finalDate),
+    id: randomUUID(),
     name: name ?? String(finalDate).split(' ').slice(1, 4).join(' '),
     date: finalDate,
     type: CIRCUIT_TRAINIG_TYPE.EMOM,
@@ -142,7 +143,7 @@ export const createAMRAPTraining = (
   }
 
   return {
-    id: String(finalDate),
+    id: randomUUID(),
     date: finalDate,
     name: name ?? String(finalDate).split(' ').slice(1, 4).join(' '),
     type: CIRCUIT_TRAINIG_TYPE.AMRAP,
@@ -184,7 +185,7 @@ export const createAFAPTraining = (
   }
 
   return {
-    id: String(finalDate),
+    id: randomUUID(),
     date: finalDate,
     name: name ?? String(finalDate).split(' ').slice(1, 4).join(' '),
     multisets,
@@ -235,7 +236,7 @@ export const createCircularTraining = (
   }
 
   return {
-    id: String(finalDate),
+    id: randomUUID(),
     date: finalDate,
     name: name ?? String(finalDate).split(' ').slice(1, 4).join(' '),
     type: CIRCUIT_TRAINIG_TYPE.CT,
