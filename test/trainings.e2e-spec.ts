@@ -1,16 +1,20 @@
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { rm } from 'node:fs/promises';
+import { mkdtemp, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import request from 'supertest';
 import { App } from 'supertest/types.js';
 import { AppModule } from './../src/app.module.js';
 
-const JOURNAL_PATH = 'data/trainings.jsonl';
-
 describe('TrainingsController (e2e)', () => {
   let app: INestApplication<App>;
+  let journalDir: string;
 
   beforeEach(async () => {
+    journalDir = await mkdtemp(join(tmpdir(), 'progresser-e2e-'));
+    process.env.TRAINING_JOURNAL_PATH = join(journalDir, 'trainings.jsonl');
+
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
@@ -21,7 +25,8 @@ describe('TrainingsController (e2e)', () => {
 
   afterEach(async () => {
     await app.close();
-    await rm(JOURNAL_PATH, { force: true });
+    delete process.env.TRAINING_JOURNAL_PATH;
+    await rm(journalDir, { recursive: true, force: true });
   });
 
   it('/trainings (POST) creates a training', async () => {
