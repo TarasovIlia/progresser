@@ -5,7 +5,7 @@ import { CIRCUIT_TRAINIG_TYPE } from './types/types.js';
 
 export const createTraining = (
   multisets: MultiSet[],
-  date: Date,
+  date?: Date,
   name?: string,
   duration?: number,
   timeLimit?: number,

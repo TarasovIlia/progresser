@@ -2,7 +2,7 @@ export interface CreateTrainingRequest {
   name: string;
   multisets: RequestMultiSet[];
   targetMultisets?: number;
-  date: Date;
+  date?: Date;
   duration?: number;
   timeLimit?: number;
 }

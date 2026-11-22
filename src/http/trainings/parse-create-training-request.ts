@@ -36,9 +36,12 @@ export const parseCreateTrainingRequest = (body: unknown): CreateTrainingRequest
     throw new BadRequestException('"multisets" must be an array of valid multisets');
   }
 
-  const date = new Date(body.date as string);
-  if (Number.isNaN(date.getTime())) {
-    throw new BadRequestException('"date" must be a valid date');
+  let date: Date | undefined;
+  if (body.date !== undefined) {
+    date = new Date(body.date as string);
+    if (Number.isNaN(date.getTime())) {
+      throw new BadRequestException('"date" must be a valid date');
+    }
   }
 
   if (body.targetMultisets !== undefined && typeof body.targetMultisets !== 'number') {

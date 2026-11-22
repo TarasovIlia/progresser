@@ -46,6 +46,29 @@ describe('TrainingsController (e2e)', () => {
     expect(response.body.message).toBe('Training created');
   });
 
+  it('/trainings (POST) generates a date when none is provided', async () => {
+    const response = await request(app.getHttpServer())
+      .post('/trainings')
+      .send({
+        name: 'Leg day',
+        multisets: [
+          {
+            sets: [{ exercise: 'Squats', reps: 10, weight: 20 }],
+            targetSets: 1,
+            duration: 30,
+            timeLimit: 60,
+            restTime: 60,
+          },
+        ],
+      })
+      .expect(201);
+
+    expect(response.body.trainingId).toBeTruthy();
+
+    const list = await request(app.getHttpServer()).get('/trainings').expect(200);
+    expect(list.body.trainings[0].date).toBeTruthy();
+  });
+
   it('/trainings (POST) rejects a business-rule violation with 400', async () => {
     await request(app.getHttpServer())
       .post('/trainings')
