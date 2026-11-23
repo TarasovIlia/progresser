@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { createObserveModule } from '@nestjs/observe';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
+import { TemplateTrainingsModule } from './http/template-trainings/template-trainings.module.js';
 import { TrainingsModule } from './http/trainings/trainings.module.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
@@ -16,6 +17,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
       serviceId: 'progresser',
     }),
     TrainingsModule,
+    TemplateTrainingsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

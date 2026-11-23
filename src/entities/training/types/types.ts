@@ -5,6 +5,14 @@ export enum CIRCUIT_TRAINIG_TYPE {
   AFAP = 'afap',
 }
 
+export interface TemplateSet {
+  exercise: string;
+  weight?: number;
+  targetReps?: number;
+  timeLimit?: number;
+  restTime?: number;
+}
+
 export interface Set {
   exercise: string;
   reps: number;
@@ -12,6 +20,13 @@ export interface Set {
   targetReps?: number;
   duration?: number;
   timeLimit?: number;
+  restTime?: number;
+}
+
+export interface TemplateMultiSet {
+  sets: TemplateSet[];
+  timeLimit?: number;
+  targetSets?: number;
   restTime?: number;
 }
 
@@ -34,5 +49,14 @@ export interface Training {
   targetMultisets?: number;
   date: Date;
   duration?: number;
+  timeLimit?: number;
+}
+
+export interface СircuitTrainingTemplate {
+  id: string;
+  name: string;
+  multiset: TemplateMultiSet;
+  targetMultisets?: number;
+  type: CIRCUIT_TRAINIG_TYPE;
   timeLimit?: number;
 }
